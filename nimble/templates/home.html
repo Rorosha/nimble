@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<style>
+#set div { width: 250px; height: 250px; padding: 0.5em; float: left; margin: 0 10px 10px 0; }
+#set { clear:both; float:left; width: 960px; height: 860px; }
+p { clear:both; margin:0; padding:1em 0; }
+</style>
+
+<script>
+$(function() {
+$( "#set div" ).draggable({ stack: "#set div" });
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="board">
+
+    {% if cards %}
+
+    <h3 class="docs">Draggable Stacks</h3>
+      <div id="set">
+      {% for card in cards %}
+	<div class="ui-widget-content">
+	Summary: {{ card.summary }}<br />
+	Story: {{ card.story }}<br />
+	Criteria: {{ card.criteria }}<br />
+	Estimate: {{ card.estimate }}<br />
+        </div>
+
+      {% endfor %}
+
+	</div>
+
+    {% else %}
+
+       <h2>There are no cards here!</h2>
+    
+    {% endif %}
+
+  </div>
+
+{% endblock %}

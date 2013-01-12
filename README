@@ -1,0 +1,62 @@
+Overview
+========
+
+The basis of this app is to have a blank canvas (the main page), that the
+users can place planning cards onto and brainstorm for Agile development. 
+
+JS will cover most of the heavy lifting for the AJAX side of things.
+Depending on how the server handles the load initially, we might have
+to steal some code from Etherpad for the collaboration piece.
+
+Main Functions
+==============
+
+On initial load, the user will be presented with a login window. After 
+inital login or registration the user will be automatically forwarded 
+to the board. 
+
+The board will have a button to create a card. This will show a card 
+over top of the board with two editable fields, the summary and the 
+user story. At the bottom of the card, there will be three buttons 'Save',
+'Cancel' and 'Flip'. Once card has been flipped a user can update the 
+acceptance criteria.
+
+Once a card has been placed on the board, the user can then click and 
+drag the card to anywhere on the board. Cards should be able to be 
+stacked and organized into piles (probably needs some custom 
+functionality for that). 
+
+Multiple users should be able to create and edit cards at the same time.
+Have to figure out how to handle conflicts upon edit.
+
+Cards will be stored in a SQLite database. Eventually we would want this 
+mapped to some form of DCVS (git or mercurial).
+
+Estimates should be collaborative. Not sure if this needs to be a js 
+function or a backend function, but having everyone on the board vote
+for a story point estimate would make the process easy.
+
+	Because of this, there probably needs to be some form of notification
+	function for users that are logged in that someone else is viewing 
+	and editing the card.
+
+Multiple boards for different projects. Cards should be distinct to a 
+board, but you should be able to migrate them to a new board.
+
+Potential Additions
+===================
+
+Should interface with Jira, TFS and whatnot. This could be a useful 
+interface for planning sessions - especially if it created the right
+tickets in whatever system they used. This would probably have to be a 
+separate application (though we could call it through the app once it 
+was working).
+
+Some form of tracking cards as they're completed would be nice (supposing
+people wanted to use the app for that). But that's very much out of scope
+at this point.
+
+OAuth login for in-promptu planning sessions. Be able to create a new board
+with a secret key to pass around and route people to the correct board. Then
+the server could be a public facing application for use at conferences and 
+classes on the Agile method.

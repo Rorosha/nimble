@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+  <h1>Which card do you want to remove?</h1>
+
+ <!-- Notice the input names - these have to correspond with model class 
+  attributes due to how the update() method works -->
+  <form action="{{ url_for('remove_card') }}" method=post>
+    <dl>
+      <dt>ID:</dt>
+      <dd><input type=text name=card_id></dd>
+      <dd><input type=submit value=RemoveCard>
+    </dl>
+  </form>
+</div>
+
+
+{% endblock %}

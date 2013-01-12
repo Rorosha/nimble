@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+  <h1>Add a card!</h1>
+
+ <!-- Notice the input names - these have to correspond with model class 
+  attributes due to how the update() method works -->
+  <form action="{{ url_for('add_card') }}" method=post>
+    <dl>
+      <dt>Summary:</dt>
+      <dd><input type=text name=summary></dd>
+      <dt>Story:</dt>
+      <dd><input type=text name=story></dd>
+      <dt>Acceptance Criteria:</dt>
+      <dd><input type=text name=criteria></dd>
+      <dt>Estimate:</dt>
+      <dd><input type=text name=estimate></dd>
+      <dd><input type=submit value=AddCard>
+    </dl>
+  </form>
+</div>
+
+
+{% endblock %}
