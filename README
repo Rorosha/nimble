@@ -2,7 +2,11 @@ Overview
 ========
 
 The basis of this app is to have a blank canvas (the main page), that the
-users can place planning cards onto and brainstorm for Agile development. 
+users can place planning cards onto for various purposes, including:
+ - Brainstorming
+ - Agile and Kanban development
+ - Organizing tasks and ideas
+ - Lean Coffee style dstributed meetings
 
 JS will cover most of the heavy lifting for the AJAX side of things.
 Depending on how the server handles the load initially, we might have
@@ -25,6 +29,9 @@ Once a card has been placed on the board, the user can then click and
 drag the card to anywhere on the board. Cards should be able to be 
 stacked and organized into piles (probably needs some custom 
 functionality for that). 
+
+It would also be nice to have columns for cards to travel through, ala Kanban
+or Trello.
 
 Multiple users should be able to create and edit cards at the same time.
 Have to figure out how to handle conflicts upon edit.
@@ -60,3 +67,17 @@ OAuth login for in-promptu planning sessions. Be able to create a new board
 with a secret key to pass around and route people to the correct board. Then
 the server could be a public facing application for use at conferences and 
 classes on the Agile method.
+
+User Stories/Scenario Examples
+==============================
+ - Creating a new card
+    - As a user, I want to create a new card. I want to input in what goes on
+      the card and place it on the board through a RESTful JSON interface.
+    - As a user, I want to click a button and have a blank card appear on the
+      left hand side with a field for me to add information.
+    - As a developer, I want to automatically create cards based on outside
+      events, such as an RSS feed.
+ - Changing a card
+ - Moving a card
+ - Finishing a card
+ - Replaying changes made to cards
