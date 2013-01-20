@@ -30,8 +30,6 @@ class User(db.Model):
     def __repr__(self):
         return "<User: %s>" % self.username
 
-    #def 
-
 class Card(db.Model):
     """Model for a card. Handles the user story and acceptance criteria.
     Instantiation requires a summary. Everything else is handled by 
@@ -41,12 +39,23 @@ class Card(db.Model):
     story = db.Column(db.String(400))
     criteria = db.Column(db.String(1000))
     estimate = db.Column(db.Integer)
-    
+    deleted = db.Column(db.Integer) # Treat this as a bool
+
+    author = db.Column(db.String(50))
+
+    # Relationship with User
+   # author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+   # author = db.relationship('User',
+    #    backref=db.backref('cards', lazy='dynamic'))
+
+    # Add author to init.
     def __init__(self, summary):
         self.summary = summary
         self.story = ''
         self.criteria = ''
         self.estimate = 0
+        self.author = 'Mike'
+        self.deleted = '0'
 
     def __repr__(self):
         return '<ID: %r, Summary: %r>' % (int(self.id), self.summary)
@@ -57,7 +66,6 @@ class Card(db.Model):
             if key in self.__dict__: # Check to see if attr exists
                 setattr(self, key, value) # Set class attributes
 
-
 # Views
 
 @app.route('/')
@@ -66,7 +74,7 @@ def show_main():
 
 @app.route('/home')
 def home():
-    cards = Card.query.all()
+    cards = Card.query.filter_by(deleted="0").all()
     return render_template('home.html', cards=cards)
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -78,6 +86,7 @@ def add_card():
         newCard = Card(request.form['summary'])
         for arg in request.form:
             try:
+                # This looks a little wonky, should refactor the method.
                 newCard.update([(arg, request.form[arg])])
             except:
                 print "Couldn't update the card. Empty Arg = %s " % arg
@@ -98,7 +107,9 @@ def remove_card():
     if request.method == 'POST':
         try:
             card = Card.query.filter_by(id=request.form['card_id']).first()
-            db.session.delete(card)
+            card.deleted = 1
+
+            db.session.add(card)
             db.session.commit()
 
             return redirect(url_for('home'))
@@ -109,6 +120,26 @@ def remove_card():
     else:
 
         return "You need to do something here."
+
+@app.route('/recover', methods=['GET', 'POST'])
+def recover_card():
+    if request.method == 'GET':
+        deleted_cards = Card.query.filter_by(deleted='1').all()
+        # change template name to be recover_card.html
+        return render_template("recreate_card.html", cards=deleted_cards)
+
+    if request.method == 'POST':
+        try:
+            recovered_card = Card.query.get(request.form['card_id'])
+            recovered_card.deleted = '0'
+
+            db.session.add(recovered_card)
+            db.session.commit()
+            
+            return redirect(url_for('home'))
+
+        except:
+            return "This is broked."
 
 if __name__ == '__main__':
     app.debug = True

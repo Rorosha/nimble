@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+  <h1>Which card do you want to recover?</h1>
+
+    <div class="board">
+
+    {% if cards %}
+
+    <h3 class="docs">Deleted Cards</h3>
+      <div id="set">
+      {% for card in cards %}
+	<div class="ui-widget-content">
+	ID: {{ card.id }}<br />
+	Summary: {{ card.summary }}<br />
+	Story: {{ card.story }}<br />
+	Criteria: {{ card.criteria }}<br />
+	Estimate: {{ card.estimate }}<br />
+        </div>
+
+      {% endfor %}
+
+	</div>
+
+    {% else %}
+
+       <h2>There are no cards here!</h2>
+    
+    {% endif %}
+
+  </div>
+
+  <form action="{{ url_for('recover_card') }}" method=post>
+    <dl>
+      <dt>ID:</dt>
+      <dd><input type=text name=card_id></dd>
+      <dd><input type=submit value=RecoverCard>
+    </dl>
+  </form>
+</div>
+
+
+{% endblock %}
