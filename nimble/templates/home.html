@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
@@ -14,38 +13,30 @@ p { clear:both; margin:0; padding:1em 0; }
 
 <script>
 $(function() {
-$( "#set div" ).draggable({ stack: "#set div" });
+    $( ".card" ).draggable({
+        drag: function( event, ui ) {console.log(ui.offset)},
+        stack: ".card"
+    });
 });
 </script>
-
 {% endblock %}
 
 {% block content %}
-
   <div class="board">
-
+    <h1 class="docs">[Specific Board Name Goes Here]</h1>
     {% if cards %}
-
-    <h3 class="docs">Draggable Stacks</h3>
       <div id="set">
       {% for card in cards %}
-	<div class="ui-widget-content">
-	Summary: {{ card.summary }}<br />
-	Story: {{ card.story }}<br />
-	Criteria: {{ card.criteria }}<br />
-	Estimate: {{ card.estimate }}<br />
+	<div class="card ui-widget-content">
+            <h2 class="summary"> {{ card.summary }}</h2>
+            <p class="story">{{ card.story }}</p>
+            <p class="criteria">{{ card.criteria }}</p>
+            <p class="estimate"> {{ card.estimate }}</p>
         </div>
-
       {% endfor %}
-
-	</div>
-
+      </div>
     {% else %}
-
        <h2>There are no cards here!</h2>
-    
     {% endif %}
-
   </div>
-
 {% endblock %}

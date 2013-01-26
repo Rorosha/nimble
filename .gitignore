@@ -19,3 +19,7 @@ tramp
 # Databases
 
 *.db
+
+# Vim
+
+*.swp
