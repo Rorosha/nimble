@@ -2,15 +2,14 @@ import os
 
 from flask import Flask, request, url_for, render_template, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
-#from models import db, card
 
 # Basic Config stuff
 app = Flask(__name__)
 SQL_DATABASE = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////' + SQL_DATABASE + '/cards.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:////' + SQL_DATABASE +
+                                                                    '/cards.db')
 
 db = SQLAlchemy(app)
-#db.init_app(app)
 
 # Models
 
@@ -67,12 +66,7 @@ class Card(db.Model):
                 setattr(self, key, value) # Set class attributes
 
 # Views
-
 @app.route('/')
-def show_main():
-    return "<h2>It worked!</h2>"
-
-@app.route('/home')
 def home():
     cards = Card.query.filter_by(deleted="0").all()
     return render_template('home.html', cards=cards)

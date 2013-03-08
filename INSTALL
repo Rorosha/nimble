@@ -1,0 +1,3 @@
+Requirements are all easily installed by pip.
+
+Run make_db.py in order to create the database.
