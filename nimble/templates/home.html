@@ -8,7 +8,12 @@
 <style>
 #set div { width: 350px; height: 200px; padding: 0.5em; float: left; margin: 0 10px 10px 0; font-family: sans, verdana; font-size: 1em;}
 #set { clear:both; float:left; width: 100%; height: 100%; }
-p { clear:both; margin:0; padding:1em 0; }
+p { clear:both; margin:0; padding:.3em 0; }
+.summary { font-size: 15px; margin: 2px; overflow: hidden; white-space: nowrap; }
+.story { margin: 2px; height: 25%; }
+.criteria { margin: 2px; height: 25%; }
+.estimate { margin: 2px; }
+.card_button { float: right; font-size: 62%; margin-left: 2px; }
 </style>
 
 <script>
@@ -16,6 +21,11 @@ $(function() {
     $( ".card" ).draggable({
         drag: function( event, ui ) {console.log(ui.offset)},
         stack: ".card"
+    });
+    $( "input[type=submit], button" )
+	.button()
+	.click(function( event ) {
+		//event.preventDefault();
     });
 });
 </script>
@@ -29,10 +39,15 @@ $(function() {
       <div id="set">
       {% for card in cards %}
 	<div class="card ui-widget-content">
-            <h2 class="summary"> {{ card.summary }}</h2>
+            <h2 class="summary">{{ card.id }} | {{ card.summary }}</h2>
             <p class="story">{{ card.story }}</p>
             <p class="criteria">{{ card.criteria }}</p>
-            <p class="estimate"> {{ card.estimate }}</p>
+            <p class="estimate">Estimate: {{ card.estimate }} points</p>
+              <form action="{{ url_for('remove_card') }}" method=post>
+		<input type="hidden" name="card_id" value="{{ card.id }}" />
+                <input type="submit" value="Delete" class="card_button" />
+	      </form>
+		<button class="card_button">Flip</button>
         </div>
       {% endfor %}
       </div>
