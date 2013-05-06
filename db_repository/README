@@ -1,0 +1,6 @@
+Nimble utilizes SQLAlchemy-migrate to handle database migrations gracefully. This is the repo for the different versions of the database. Helpful for debugging.
+
+This is a database migration repository.
+
+More information at
+http://code.google.com/p/sqlalchemy-migrate/
